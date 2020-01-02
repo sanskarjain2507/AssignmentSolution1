@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Char Input{% endblock %}
+
+{% block nav_title %}Char Input{% endblock %}
+
+{% block nav_items %}
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+         <li class="nav-item active">
+            <form method="get" action="/blogging" >
+                <button style="background-color:transparent; border:0;" class="nav-link">Homepage</button>
+            </form>
+         </li>
+
+         <li class="nav-item">
+            <form method="get" action="/blogging/show_updates">
+                <button style="background-color:transparent; border:0;" class="nav-link">Updates</button>
+            </form>
+         </li>
+
+        <li class="nav-item active">
+            <form method="get" action="/blogging/onCharPress" >
+                <button type="submit" class="btn btn-danger">Create Charfield</button>
+            </form>
+        </li>
+&nbsp;&nbsp;
+        <li class="nav-item">
+            <form action="/blogging/onFilePress" method="get">
+                    <button type="submit" class="btn btn-danger">Create Filefield</button>
+            </form>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}
+{% block body %}
+<center>
+    <form method="post" action="/blogging/after_charInput" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr class="table-primary">
+                <td>Please enter the blog</td>
+                <td><input type="text" required name="chars"></td>
+            </tr>
+        </table>
+        <br><br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</center>
+
+
+{% endblock %}

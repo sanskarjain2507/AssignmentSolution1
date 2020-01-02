@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block nav_title %}Blogs{% endblock %}
+
+{% block nav_items %}
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+         <li class="nav-item active">
+            <form method="get" action="/blogging" >
+                <button style="background-color:transparent; border:0;" class="nav-link">Homepage</button>
+            </form>
+         </li>
+
+         <li class="nav-item">
+            <form method="get" action="/blogging/show_updates">
+                <button style="background-color:transparent; border:0;" class="nav-link">Updates</button>
+            </form>
+         </li>
+
+        <li class="nav-item active">
+            <form method="get" action="/blogging/onCharPress" >
+                <button type="submit" class="btn btn-danger">Create Charfield</button>
+            </form>
+        </li>
+&nbsp;&nbsp;
+        <li class="nav-item">
+            <form action="/blogging/onFilePress" method="get">
+                    <button type="submit" class="btn btn-danger">Create Filefield</button>
+            </form>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}
+
+{% block body %}
+<div align="center" style="background-color:red">
+        <h1 style="color:black;"><b><u>BLOGS</u></b></h1></div><br><br>
+
+{% for ids,blog in blogs.items %}
+<br>
+<center>
+    <div class="container">
+    <form method="get" action="/blogging/after_updt">
+        <div id="i{{ids}}" class="div_blg" style="border-style:outset; border-color:red;">
+                <input type="hidden" value="{{ids}}" name="blg_updt">
+
+            {% if blog.1 == 'fileblog' %}
+                <br><b><u><h3>File Blog</h3></u></b>
+                <hr size="10" color="green">
+                {% for i in blog.0 %}
+                    {{ i }}<br>
+                {% endfor %}
+
+            {% else %}
+                <br><b><u><h3>Char Blog</h3></u></b>
+                <hr size="10" color="green">
+                    {{ blog.0 }}<br>
+            {% endif %}
+
+        <br><button type="submit" class="btn btn-warning blg">Update</button>
+<br><br>
+        </div>
+    </form>
+    </div>
+</center>
+{% endfor %}
+{% endblock %}
